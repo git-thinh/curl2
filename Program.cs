@@ -20,8 +20,19 @@ class Program
     static RedisBase m_subcriber;
     static bool __running = true;
 
+    static void __getUrlWriteRedis(bool ok, string requestId, string url, string output)
+    {
+        //var redis = new RedisBase(new RedisSetting(REDIS_TYPE.ONLY_WRITE, __PORT_WRITE));
+        //var cmd = COMMANDS.TRANSLATE_TEXT_GOOGLE_01.ToString();
+        //cmd = cmd.Substring(0, cmd.Length - 3);
+        //redis.HSET("_TRANSLATE", input, result);
+        //redis.ReplyRequest(requestId, cmd, 1, "01", input, result);    
+    }
+
     static void __getUrlHttp(string requestId, string input)
     {
+        bool ok = false;
+        string s = string.Empty;
         StringBuilder bi = new StringBuilder();
         try
         {
@@ -41,25 +52,23 @@ class Program
             //easy.Cleanup();
 
             Curl.GlobalCleanup();
+            s = bi.ToString();
+            ok = true;
         }
         catch (Exception ex)
         {
+            s = input + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace;
         }
-
-        string s = bi.ToString();
-
-        //var redis = new RedisBase(new RedisSetting(REDIS_TYPE.ONLY_WRITE, __PORT_WRITE));
-        //var cmd = COMMANDS.TRANSLATE_TEXT_GOOGLE_01.ToString();
-        //cmd = cmd.Substring(0, cmd.Length - 3);
-        //redis.HSET("_TRANSLATE", input, result);
-        //redis.ReplyRequest(requestId, cmd, 1, "01", input, result);
+        __getUrlWriteRedis(ok, requestId, input, s);
     }
 
     static void __getUrlHttps(string requestId, string input)
     {
+        bool ok = false;
+        string s = string.Empty;
+        StringBuilder bi = new StringBuilder();
         try
         {
-            StringBuilder bi = new StringBuilder();
             Curl.GlobalInit((int)CURLinitFlag.CURL_GLOBAL_ALL);
 
             Easy easy = new Easy();
@@ -84,18 +93,13 @@ class Program
 
             Curl.GlobalCleanup();
 
-            string s = bi.ToString();
-
+            s = bi.ToString();
         }
         catch (Exception ex)
         {
+            s = input + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace;
         }
-
-        //var redis = new RedisBase(new RedisSetting(REDIS_TYPE.ONLY_WRITE, __PORT_WRITE));
-        //var cmd = COMMANDS.TRANSLATE_TEXT_GOOGLE_01.ToString();
-        //cmd = cmd.Substring(0, cmd.Length - 3);
-        //redis.HSET("_TRANSLATE", input, result);
-        //redis.ReplyRequest(requestId, cmd, 1, "01", input, result);
+        __getUrlWriteRedis(ok, requestId, input, s);
     }
 
     static void __executeTaskHttp(Tuple<string, COMMANDS, string> data)
@@ -107,7 +111,7 @@ class Program
             case COMMANDS.CURL_GET_HTML:
                 if (!string.IsNullOrEmpty(input))
                 {
-                    if(input.Contains("https")) __getUrlHttps(requestId, input);
+                    if (input.Contains("https")) __getUrlHttps(requestId, input);
                     else __getUrlHttp(requestId, input);
                 }
                 break;
