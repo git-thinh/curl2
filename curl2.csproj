@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{C82BE07E-026E-489D-8730-81EADC4D132C}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>curl</RootNamespace>
-    <AssemblyName>curl</AssemblyName>
+    <RootNamespace>curl2</RootNamespace>
+    <AssemblyName>curl2</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\curl\</OutputPath>
+    <OutputPath>..\..\build\curl2\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
