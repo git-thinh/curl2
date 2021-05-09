@@ -19,7 +19,13 @@ class Program
     const string __SUBCRIBE_OUT = "__CURL_OUT";
     static RedisBase m_subcriber;
     static bool __running = true;
+    
+    #region [ CURL_GET_HEADER ]
 
+    #endregion
+
+    #region [ CURL_GET_HTML ]
+    
     static void __getUrlWriteRedis(bool ok, string requestId, string url, string output)
     {
         //var redis = new RedisBase(new RedisSetting(REDIS_TYPE.ONLY_WRITE, __PORT_WRITE));
@@ -101,6 +107,37 @@ class Program
         }
         __getUrlWriteRedis(ok, requestId, input, s);
     }
+
+    #endregion
+
+    #region [ CURL_GET_HTML_COOKIE ]
+
+    #endregion
+
+    #region [ CURL_GET_HEADER ]
+
+    #endregion
+
+    #region [ CURL_POST ]
+
+    #endregion
+
+    #region [ CURL_POST_COOKIE ]
+
+    #endregion
+
+    #region [ CURL_POST_UPLOAD_FILE_COOKIE ]
+
+    #endregion
+
+
+    #region [ CURL_POST_UPLOAD_FILE ]
+
+    #endregion
+
+    #region [ CURL_FTP_UPLOAD_FILE ]
+
+    #endregion
 
     static void __executeTaskHttp(Tuple<string, COMMANDS, string> data)
     {
