@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C82BE07E-026E-489D-8730-81EADC4D132C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>curl</RootNamespace>
+    <AssemblyName>curl</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\curl\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="LZ4">
+      <HintPath>..\_DLL2\LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\_DLL2\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core">
+      <HintPath>..\_DLL2\System.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\_shared\redisbasic\RedisBase.cs">
+      <Link>_shared\redis\RedisBase.cs</Link>
+    </Compile>
+    <Compile Include="..\_shared\redisbasic\RedisSetting.cs">
+      <Link>_shared\redis\RedisSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\_shared\redisbasic\REDIS_TYPE.cs">
+      <Link>_shared\redis\REDIS_TYPE.cs</Link>
+    </Compile>
+    <Compile Include="..\_shared\redisbasic\ResponseException.cs">
+      <Link>_shared\redis\ResponseException.cs</Link>
+    </Compile>
+    <Compile Include="..\_shared\_document\StaticDocument.cs">
+      <Link>_shared\StaticDocument.cs</Link>
+    </Compile>
+    <Compile Include="..\_shared\__tuple_this.cs">
+      <Link>_shared\__tuple_this.cs</Link>
+    </Compile>
+    <Compile Include="..\_shared\__web_server.cs">
+      <Link>_shared\__web_server.cs</Link>
+    </Compile>
+    <Compile Include="LibCurlNet\Curl.cs" />
+    <Compile Include="LibCurlNet\Easy.cs" />
+    <Compile Include="LibCurlNet\Enums.cs" />
+    <Compile Include="LibCurlNet\External.cs" />
+    <Compile Include="LibCurlNet\Multi.cs" />
+    <Compile Include="LibCurlNet\MultiInfo.cs" />
+    <Compile Include="LibCurlNet\MultiPartForm.cs" />
+    <Compile Include="LibCurlNet\Share.cs" />
+    <Compile Include="LibCurlNet\Slist.cs" />
+    <Compile Include="LibCurlNet\SSLContext.cs" />
+    <Compile Include="LibCurlNet\VersionInfoData.cs" />
+    <Compile Include="MyService.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MyServiceInstaller.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="libcurl.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="libcurl.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LibCurlNet\x64\libcurl.dll" />
+    <Content Include="LibCurlNet\x64\libcurl.pdb" />
+    <Content Include="LibCurlNet\x64\LibCurlShim.dll" />
+    <Content Include="LibCurlNet\x64\LibCurlShim.pdb" />
+    <Content Include="LibCurlNet\x86\libcurl.dll" />
+    <Content Include="LibCurlNet\x86\libcurl.pdb" />
+    <Content Include="LibCurlNet\x86\LibCurlShim.dll" />
+    <Content Include="LibCurlNet\x86\LibCurlShim.pdb" />
+    <Content Include="LibCurlShim.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LibCurlShim.pdb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ca-bundle.crt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="LibCurlNet\ca-bundle\ca-bundle.crt" />
+    <None Include="LibCurlNet\ca-bundle\ca-bundle.old.crt" />
+    <None Include="LibCurlNet\ca-bundle\curl-ca-bundle.crt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

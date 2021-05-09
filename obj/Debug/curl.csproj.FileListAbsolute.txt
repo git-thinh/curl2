@@ -1,0 +1,12 @@
+D:\tt\build\curl\libcurl.dll
+D:\tt\build\curl\libcurl.pdb
+D:\tt\build\curl\LibCurlShim.dll
+D:\tt\build\curl\LibCurlShim.pdb
+D:\tt\build\curl\curl.exe
+D:\tt\build\curl\curl.pdb
+D:\tt\core\curl\obj\Debug\curl.csproj.CoreCompileInputs.cache
+D:\tt\core\curl\obj\Debug\curl.csproj.CopyComplete
+D:\tt\core\curl\obj\Debug\curl.exe
+D:\tt\core\curl\obj\Debug\curl.pdb
+D:\tt\build\curl\ca-bundle.crt
+D:\tt\core\curl\obj\Debug\curl.csprojAssemblyReference.cache
