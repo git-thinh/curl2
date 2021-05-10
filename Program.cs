@@ -9,10 +9,12 @@ using System.IO;
 using System.Net;
 using System.Web;
 using SeasideResearch.LibCurlNet;
+using LZ4;
 
 class Program
 {
-    const int _http_port = 12300;
+    const int __DB = 15;
+    const int _HTTP_PORT = 12300;
     const int __PORT_WRITE = 1000;
     const int __PORT_READ = 1001;
     const string __SUBCRIBE_IN = "__CURL_IN";
@@ -20,21 +22,34 @@ class Program
     static RedisBase m_subcriber;
     static bool __running = true;
     
+    static void __getUrlWriteRedis(COMMANDS cmd, bool ok, string requestId, string url, string data)
+    {
+        var command = cmd.ToString();
+        Uri uri = null;
+        if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out uri))
+        {
+            string host = uri.Host.ToLower(), path = uri.PathAndQuery.Substring(1).ToLower();
+            if (host.StartsWith("www.")) host = host.Substring(4);
+
+            var buf = Encoding.UTF8.GetBytes(data);
+            var lz = LZ4Codec.Wrap(buf);
+
+            var redis = new RedisBase(new RedisSetting(REDIS_TYPE.ONLY_WRITE, __PORT_WRITE, __DB));
+            var exist = redis.HEXISTS(host, path);
+            if (!exist)
+            {
+                redis.HSET(host, path, lz);
+                redis.ReplyRequest(requestId, command, 1, host, path);
+            }
+        }
+    }
+
     #region [ CURL_GET_HEADER ]
 
     #endregion
 
     #region [ CURL_GET_HTML ]
     
-    static void __getUrlWriteRedis(bool ok, string requestId, string url, string output)
-    {
-        //var redis = new RedisBase(new RedisSetting(REDIS_TYPE.ONLY_WRITE, __PORT_WRITE));
-        //var cmd = COMMANDS.TRANSLATE_TEXT_GOOGLE_01.ToString();
-        //cmd = cmd.Substring(0, cmd.Length - 3);
-        //redis.HSET("_TRANSLATE", input, result);
-        //redis.ReplyRequest(requestId, cmd, 1, "01", input, result);    
-    }
-
     static void __getUrlHttp(string requestId, string input)
     {
         bool ok = false;
@@ -65,7 +80,7 @@ class Program
         {
             s = input + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace;
         }
-        __getUrlWriteRedis(ok, requestId, input, s);
+        __getUrlWriteRedis(COMMANDS.CURL_GET_HTML, ok, requestId, input, s);
     }
 
     static void __getUrlHttps(string requestId, string input)
@@ -100,12 +115,13 @@ class Program
             Curl.GlobalCleanup();
 
             s = bi.ToString();
+            ok = true;
         }
         catch (Exception ex)
         {
             s = input + Environment.NewLine + ex.Message + Environment.NewLine + ex.StackTrace;
         }
-        __getUrlWriteRedis(ok, requestId, input, s);
+        __getUrlWriteRedis(COMMANDS.CURL_GET_HTML, ok, requestId, input, s);
     }
 
     #endregion
@@ -129,7 +145,6 @@ class Program
     #region [ CURL_POST_UPLOAD_FILE_COOKIE ]
 
     #endregion
-
 
     #region [ CURL_POST_UPLOAD_FILE ]
 
@@ -170,7 +185,7 @@ class Program
     static WebServer _http;
     static void __startApp()
     {
-        string uri = string.Format("http://127.0.0.1:{0}/", _http_port);
+        string uri = string.Format("http://127.0.0.1:{0}/", _HTTP_PORT);
         _http = new WebServer(__executeTaskHttp);
         _http.Start(uri);
         m_subcriber = new RedisBase(new RedisSetting(REDIS_TYPE.ONLY_SUBCRIBE, __PORT_READ));
@@ -209,7 +224,7 @@ class Program
     {
         if (Environment.UserInteractive)
         {
-            Console.Title = string.Format("{0} - {1}", __SUBCRIBE_IN, _http_port);
+            Console.Title = string.Format("{0} - {1}", __SUBCRIBE_IN, _HTTP_PORT);
             StartOnConsoleApp(args);
             Console.WriteLine("Press any key to stop...");
             Console.ReadKey(true);

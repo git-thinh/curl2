@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\_Shared\RedisBasic\IRedisBase.cs">
+      <Link>_shared\redis\IRedisBase.cs</Link>
+    </Compile>
     <Compile Include="..\_shared\redisbasic\RedisBase.cs">
       <Link>_shared\redis\RedisBase.cs</Link>
     </Compile>

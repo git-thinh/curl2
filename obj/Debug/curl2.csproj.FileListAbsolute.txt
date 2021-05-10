@@ -5,7 +5,6 @@ D:\tt\build\curl2\LibCurlShim.pdb
 D:\tt\build\curl2\ca-bundle.crt
 D:\tt\build\curl2\curl2.exe
 D:\tt\build\curl2\curl2.pdb
-D:\tt\core\curl2\obj\Debug\curl2.csprojAssemblyReference.cache
 D:\tt\core\curl2\obj\Debug\curl2.csproj.CoreCompileInputs.cache
 D:\tt\core\curl2\obj\Debug\curl2.csproj.CopyComplete
 D:\tt\core\curl2\obj\Debug\curl2.exe
