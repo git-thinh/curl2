@@ -9,3 +9,4 @@ D:\tt\core\curl2\obj\Debug\curl2.csproj.CoreCompileInputs.cache
 D:\tt\core\curl2\obj\Debug\curl2.csproj.CopyComplete
 D:\tt\core\curl2\obj\Debug\curl2.exe
 D:\tt\core\curl2\obj\Debug\curl2.pdb
+D:\tt\core\curl2\obj\Debug\curl2.csproj.AssemblyReference.cache
